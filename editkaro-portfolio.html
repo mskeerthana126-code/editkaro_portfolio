@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editkaro.in - Creative Video & Social Media Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #4ecdc4;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #4ecdc4;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-item.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+        }
+
+        .item-image {
+            height: 200px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef, #fecfef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .portfolio-item:hover .item-image::before {
+            left: 100%;
+        }
+
+        .item-content {
+            padding: 1.5rem;
+        }
+
+        .item-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .item-description {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .item-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            padding: 0.3rem 0.8rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .view-btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: transparent;
+            border: 2px solid #ff6b6b;
+            color: #ff6b6b;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Editkaro.in</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Creative Video & Social Media Agency</h1>
+            <p>Transforming ideas into engaging visual stories through expert video editing and social media marketing</p>
+            <a href="#portfolio" class="cta-button">View Our Work</a>
+        </div>
+        
+        <!-- Floating particles -->
+        <div class="particle" style="width: 20px; height: 20px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="width: 15px; height: 15px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+        <div class="particle" style="width: 25px; height: 25px; top: 40%; left: 20%; animation-delay: 4s;"></div>
+        <div class="particle" style="width: 12px; height: 12px; top: 80%; left: 60%; animation-delay: 1s;"></div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in">Our Creative Portfolio</h2>
+            
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="short-form">Short-form Videos</button>
+                <button class="filter-btn" data-filter="long-form">Long-form Videos</button>
+                <button class="filter-btn" data-filter="gaming">Gaming Content</button>
+                <button class="filter-btn" data-filter="commercial">Commercial</button>
+                <button class="filter-btn" data-filter="documentary">Documentary</button>
+                <button class="filter-btn" data-filter="animation">Animation</button>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in" data-category="short-form">
+                    <div class="item-image">📱 Viral TikTok Series</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Trending Social Media Campaign</h3>
+                        <p class="item-description">A series of engaging short-form videos that went viral across multiple platforms, generating 2M+ views and boosting brand awareness.</p>
+                        <div class="item-tags">
+                            <span class="tag">TikTok</span>
+                            <span class="tag">Instagram Reels</span>
+                            <span class="tag">Viral Content</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="long-form">
+                    <div class="item-image">🎬 Brand Documentary</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Corporate Success Story</h3>
+                        <p class="item-description">A compelling 15-minute documentary showcasing a startup's journey from inception to success, featuring interviews and behind-the-scenes footage.</p>
+                        <div class="item-tags">
+                            <span class="tag">Documentary</span>
+                            <span class="tag">Corporate</span>
+                            <span class="tag">Storytelling</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="gaming">
+                    <div class="item-image">🎮 Gaming Montage</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Epic Gaming Highlights</h3>
+                        <p class="item-description">High-energy gaming montage featuring the best moments from popular streamers, synchronized with dynamic music and effects.</p>
+                        <div class="item-tags">
+                            <span class="tag">Gaming</span>
+                            <span class="tag">Montage</span>
+                            <span class="tag">YouTube</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="commercial">
+                    <div class="item-image">📺 TV Commercial</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Premium Product Launch</h3>
+                        <p class="item-description">A sleek 30-second commercial for a tech product launch, featuring smooth transitions and professional color grading.</p>
+                        <div class="item-tags">
+                            <span class="tag">Commercial</span>
+                            <span class="tag">Product Launch</span>
+                            <span class="tag">TV/Digital</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="documentary">
+                    <div class="item-image">🌍 Nature Documentary</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Wildlife Conservation Project</h3>
+                        <p class="item-description">An educational documentary about local wildlife conservation efforts, featuring stunning nature footage and expert interviews.</p>
+                        <div class="item-tags">
+                            <span class="tag">Nature</span>
+                            <span class="tag">Conservation</span>
+                            <span class="tag">Educational</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="animation">
+                    <div class="item-image">✨ 2D Animation</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Animated Explainer Video</h3>
+                        <p class="item-description">A colorful 2D animated video explaining complex concepts in an easy-to-understand format for educational purposes.</p>
+                        <div class="item-tags">
+                            <span class="tag">2D Animation</span>
+                            <span class="tag">Explainer</span>
+                            <span class="tag">Education</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="short-form">
+                    <div class="item-image">📲 Instagram Stories</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Daily Content Series</h3>
+                        <p class="item-description">A month-long Instagram Stories campaign featuring daily tips, behind-the-scenes content, and user engagement activities.</p>
+                        <div class="item-tags">
+                            <span class="tag">Instagram</span>
+                            <span class="tag">Stories</span>
+                            <span class="tag">Daily Content</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-item fade-in" data-category="long-form">
+                    <div class="item-image">🎭 Event Highlights</div>
+                    <div class="item-content">
+                        <h3 class="item-title">Conference Recap Video</h3>
+                        <p class="item-description">A comprehensive 20-minute highlight reel from a major industry conference, capturing keynote speeches and networking moments.</p>
+                        <div class="item-tags">
+                            <span class="tag">Event</span>
+                            <span class="tag">Conference</span>
+                            <span class="tag">Highlights</span>
+                        </div>
+                        <a href="#" class="view-btn">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content fade-in">
+                <h2 class="section-title" style="color: white;">About Editkaro.in</h2>
+                <p>We are a passionate team of creative professionals specializing in video editing and social media marketing. Our expertise spans across all forms of digital content creation.</p>
+                <p>From viral short-form videos to compelling documentaries, we bring your vision to life with cutting-edge editing techniques, stunning color grading, and engaging storytelling.</p>
+                <p>Our mission is to help brands and creators stand out in the digital landscape through exceptional visual content that resonates with audiences and drives results.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <p class="fade-in">Ready to bring your creative vision to life? Let's collaborate on your next project.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email Us</h3>
+                    <p>hello@editkaro.in<br>projects@editkaro.in</p>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">📱</div>
+                    <h3>Call Us</h3>
+                    <p>+91 98765 43210<br>Mon-Fri 9AM-6PM</p>
+                </div>
+                <div class="contact-item fade-in">
+                    <div class="contact-icon">🌐</div>
+                    <h3>Social Media</h3>
+                    <p>@editkaro.in<br>All major platforms</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Editkaro.in. All rights reserved. | Crafting visual stories that inspire and engage.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Portfolio filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                portfolioItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || itemCategory === filterValue) {
+                        item.classList.remove('hidden');
+                        setTimeout(() => {
+                            item.style.display = 'block';
+                        }, 50);
+                    } else {
+                        item.classList.add('hidden');
+                        setTimeout(() => {
+                            if (item.classList.contains('hidden')) {
+                                item.style.display = 'none';
+                            }
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click animation to CTA button
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            const button = e.target;
+            button.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+            }, 150);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            hero.style.transform = `translateY(${rate}px)`;
+        });
+
+        // Dynamic particle animation
+        function createFloatingElements() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 5; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 20 + 10 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                hero.appendChild(particle);
+            }
+        }
+
+        // Initialize floating elements
+        createFloatingElements();
+    </script>
+</body>
+</html>
