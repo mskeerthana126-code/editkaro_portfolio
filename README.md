@@ -1,6 +1,5 @@
-# Editkaro.in – Creative Video & Social Media Agency
 
-**Website:** [Editkaro.in](#)  
+**Project:** Editkaro Portfolio – Creative Video & Social Media Agency
 
 Editkaro.in is a modern, responsive, and visually engaging website for a creative video and social media agency. The website showcases the agency's portfolio, services, and contact information with dynamic animations, interactive filters, and floating particle effects to create a visually appealing user experience.  
 
